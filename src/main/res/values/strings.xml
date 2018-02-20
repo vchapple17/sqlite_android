@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SQLite</string>
+    <string name="hintText">Type Here</string>
+    <string name="submitButton">Submit</string>
+</resources>
