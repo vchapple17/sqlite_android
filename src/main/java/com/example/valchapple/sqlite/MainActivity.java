@@ -12,7 +12,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -90,8 +88,6 @@ public class MainActivity extends AppCompatActivity
 
         populateTable();
 
-        //Location Services
-//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Connect Submit Button
         final Button buttonSubmit = findViewById(R.id.button_submit);
@@ -165,7 +161,11 @@ public class MainActivity extends AppCompatActivity
             if (checkPermissions() == false) {
                 // Ask for permission
                 Log.d(TAG, "submitText Location Denied.");
-                requestLocationPermission();
+                mCurrentLocation = new Location("default");
+                mCurrentLocation.setLatitude(DEFAULT_LAT);
+                mCurrentLocation.setLongitude(DEFAULT_LON);
+                saveTextLabel();
+
             } else {
                 // Get location
                 Log.d(TAG, "submitText Logging with location.");
@@ -210,7 +210,6 @@ public class MainActivity extends AppCompatActivity
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission has been granted. Get Location
                 Log.d(TAG, "onRequestPermissionsResult Permission granted");
-                saveLastLocation();
             } else {
                 // Permission request was denied.
                 mCurrentLocation = new Location("default");
@@ -229,9 +228,6 @@ public class MainActivity extends AppCompatActivity
                     public void onSuccess(Location location) {
                         if (location != null) {
                             Log.d(TAG, "Location returned.");
-//                            mCurrentLocation = location;
-//                            Log.d(TAG, String.valueOf(mCurrentLocation.getLatitude()));
-//                            Log.d(TAG, String.valueOf(mCurrentLocation.getLongitude()));
                             onLocationChanged(location);
                         } else {
                             Log.d(TAG, "Null location returned.");
@@ -244,8 +240,8 @@ public class MainActivity extends AppCompatActivity
     private void saveTextLabel() {
         Log.d(TAG, String.valueOf(mCurrentLocation.getLatitude()));
         Log.d(TAG, String.valueOf(mCurrentLocation.getLongitude()));
-        Log.d(TAG, this.textView.getText().toString());
-        if (mDB != null) {
+
+        if (mDB != null && textView != null) {
             ContentValues vals = new ContentValues();
             vals.put(SQLiteDB.LocationTable.COLUMN_NAME_TEXT_STRING,
                     textView.getText().toString());
@@ -294,22 +290,14 @@ public class MainActivity extends AppCompatActivity
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
-            requestLocationPermission();
             return false;
         }
     }
 
     public void onLocationChanged(Location location) {
         // New location has now been determined
-//        String msg = "Updated Location: " +
-//                Double.toString(location.getLatitude()) + "," +
-//                Double.toString(location.getLongitude());
         mCurrentLocation = location;
         Log.d(TAG, String.valueOf(mCurrentLocation.getLatitude()));
         Log.d(TAG, String.valueOf(mCurrentLocation.getLongitude()));
-//
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-//        // You can now create a LatLng Object for use with maps
-//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 }
