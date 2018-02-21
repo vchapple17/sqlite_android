@@ -22,12 +22,12 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQLiteDB.LocationTable.SQL_CREATE_LOCATION_TABLE);
 
-        // Sample Values
-        ContentValues sample = new ContentValues();
-        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_TEXT_STRING, "asdf");
-        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_LATITUDE, "30.0");
-        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_LONGITUDE, "3.0");
-        db.insert(SQLiteDB.LocationTable.TABLE_NAME, null, sample);
+//        // Sample Values
+//        ContentValues sample = new ContentValues();
+//        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_TEXT_STRING, "asdf");
+//        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_LATITUDE, "30.0");
+//        sample.put(SQLiteDB.LocationTable.COLUMN_NAME_LONGITUDE, "3.0");
+//        db.insert(SQLiteDB.LocationTable.TABLE_NAME, null, sample);
     }
 
     // Drop Table on Upgrade and start from scratch

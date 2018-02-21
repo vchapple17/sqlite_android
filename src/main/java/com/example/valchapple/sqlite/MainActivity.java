@@ -210,12 +210,14 @@ public class MainActivity extends AppCompatActivity
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission has been granted. Get Location
                 Log.d(TAG, "onRequestPermissionsResult Permission granted");
-            } else {
-                // Permission request was denied.
-                mCurrentLocation = new Location("default");
-                mCurrentLocation.setLatitude(DEFAULT_LAT);
-                mCurrentLocation.setLongitude(DEFAULT_LON);
+                startLocationUpdates();
             }
+//            else {
+//                // Permission request was denied.
+//                mCurrentLocation = new Location("default");
+//                mCurrentLocation.setLatitude(DEFAULT_LAT);
+//                mCurrentLocation.setLongitude(DEFAULT_LON);
+//            }
         }
     }
 
