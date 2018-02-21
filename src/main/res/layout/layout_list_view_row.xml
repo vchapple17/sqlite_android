@@ -31,7 +31,21 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/list_textview_location"
+            android:id="@+id/list_textview_lat"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="10dp"
+            android:text="subTitle"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/list_textview_lon"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_margin="5dp"
