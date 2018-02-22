@@ -101,6 +101,22 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        // Check location permissions
+        if (checkPermissions() == false) {
+            // Ask for permission
+            Log.d(TAG, "onResume Location Denied.");
+            requestLocationPermission();
+        } else {
+            // Get location
+            Log.d(TAG, "onResume startLocationUpdates.");
+            startLocationUpdates();
+        }
+
+    }
+
     // Populate Table
     public void populateTable() {
         Log.d(TAG, "populateTable START.");
