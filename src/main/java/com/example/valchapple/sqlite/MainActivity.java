@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity
                 mCurrentLocation = new Location("default");
                 mCurrentLocation.setLatitude(DEFAULT_LAT);
                 mCurrentLocation.setLongitude(DEFAULT_LON);
+                requestLocationPermission();
                 saveTextLabel();
 
             } else {
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Additional rationale for the use of the permission with button to request
-            // Reference; Google's Examples
+            // Reference: Google's Examples
             Log.d(TAG, "requestLocationPermission Pre-Prompt Location Permission.");
             Snackbar.make(mLayout, R.string.locationPermissionRequired,
                     Snackbar.LENGTH_INDEFINITE).setAction(R.string.okButton, new View.OnClickListener() {
@@ -228,12 +229,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "onRequestPermissionsResult Permission granted");
                 startLocationUpdates();
             }
-//            else {
-//                // Permission request was denied.
-//                mCurrentLocation = new Location("default");
-//                mCurrentLocation.setLatitude(DEFAULT_LAT);
-//                mCurrentLocation.setLongitude(DEFAULT_LON);
-//            }
         }
     }
 
@@ -277,7 +272,8 @@ public class MainActivity extends AppCompatActivity
     // Trigger new location updates at interval
     @SuppressLint("MissingPermission")
     protected void startLocationUpdates() {
-        // Reference: https://github.com/codepath/android_guides/wiki/Retrieving-Location-with-LocationServices-API
+        // Modified from Reference:
+        // https://github.com/codepath/android_guides/wiki/Retrieving-Location-with-LocationServices-API
         // Create the location request to start receiving updates
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
